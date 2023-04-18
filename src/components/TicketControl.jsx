@@ -7,26 +7,51 @@ class TicketControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formVisibleOnPage: false
+      counter: 0
     };
   }
-// TRY THIS OUT: https://www.learnhowtoprogram.com/react/react-fundamentals/updating-state-with-events#:~:text=We%20recommend%20experimenting%20with%20adding%20counters%2C%20booleans%2C%20and%20other%20states%20that%20need%20updating%20to%20your%20applications%20to%20get%20more%20practice%20with%20this%20slightly%20more%20complex%20implementation%20of%20setState().
-  handleClick = () => { //look at this closely
-    this.setState(prevState => ({formVisibleOnPage: !prevState.formVisibleOnPage}));
+
+  handleClick = () => {
+    if (this.state.counter === 4) {
+      this.setState((prevState) => ({
+        counter: prevState.counter - 4
+      }));
+    }
+    else {
+      this.setState((prevState) => ({
+        counter: prevState.counter + 1
+      }));
+    }
   }
-  render(){
+
+  render() {
     let currentlyVisibleState = null;
     let buttonText = null;
-    if (this.state.formVisibleOnPage) {
-      currentlyVisibleState = <NewTicketForm />;
-      buttonText = "Return to Ticket List";
-    } else {
-      currentlyVisibleState = <TicketList />
-    buttonText = "Add Ticket";
+    let pText = null;
+    if (this.state.counter === 0 || this.state.counter === 4) {
+      buttonText = "Add Ticket";
     }
+    if (this.state.counter === 1) {
+      pText = "Have you gone through all the steps on the Learn How to Program debugging lesson?";
+      buttonText = "Click to continue";
+    }
+    if (this.state.counter === 2) {
+      pText = "Have you asked another pair for help?";
+      buttonText = 'Click to continue';
+    }
+    if (this.state.counter === 3) {
+      pText = "Have you spent 15 minutes going through the problem documenting every step?";
+      buttonText = "Click to continue";
+    }
+    if (this.state.counter === 4) {
+      buttonText = "Click to add your ticket"
+      currentlyVisibleState = <NewTicketForm />
+    }
+
     return (
       <React.Fragment>
         {currentlyVisibleState}
+        <p>{pText}</p>
         <button onClick={this.handleClick}>{buttonText}</button>
       </React.Fragment>
     );
