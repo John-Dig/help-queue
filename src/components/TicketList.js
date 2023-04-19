@@ -1,39 +1,28 @@
 import React from "react";
 import Ticket from "./Ticket";
+import PropTypes from "prop-types"; //PropTypes is a library to help with type-checking
 
-const mainTicketList = [
-  {
-    names: 'Thato and Haley',
-    location: '3A',
-    issue: 'Firebase will not save record. Help'
-  },
-  {
-    names: 'Sleater and Kinney',
-    location: '4B',
-    issue: 'Prop types are throwing an error.'
-  },
-  {
-    names: 'Elizabeth & Jacob',
-    location: '9F',
-    issue: 'Child component is not rendering.'
-  }
-];
+
 
 
       
-function TicketList() {
+function TicketList(props) {
   return (
     <React.Fragment>
-      <Ticket
-        location='3A'
-        names='Thato and Haley'
-        issue='Firebase will not save record!' /> {/*these are all props. They can be passed down to child components.*/}
-      <Ticket
-        location='4B'
-        names='Sleater and Kinney'
-        issue='Prop types are throwing an error.' />
+      <hr />
+      {props.ticketList.map((ticket,index) => //loop 
+      <ticket names={ticket.names}
+      location={ticket.location}
+      issue={ticket.issue}
+      key={index} />
+      )}
     </React.Fragment>
   );
 }
+
+// Add propTypes for ticketList.
+TicketList.propTypes = {
+  ticketList: PropTypes.array
+};
 
 export default TicketList;

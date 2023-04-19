@@ -7,8 +7,17 @@ class TicketControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      mainTicketList: [],
       counter: 0
     };
+  }
+
+  handleAddingNewTicketToList = (newTicket) => {
+    const newMainTicketList = this.state.mainTicketList.concat(newTicket);
+    this.setState({
+      mainTicketList: newMainTicketList,
+      formVisibleOnPage: false
+    });
   }
 
   handleClick = () => {
@@ -18,6 +27,7 @@ class TicketControl extends React.Component {
       }));
     }
     else {
+
       this.setState((prevState) => ({
         counter: prevState.counter + 1
       }));
@@ -45,7 +55,7 @@ class TicketControl extends React.Component {
     }
     if (this.state.counter === 4) {
       buttonText = "Click to add your ticket"
-      currentlyVisibleState = <NewTicketForm />
+      currentlyVisibleState = <TicketList ticketList={this.state.mainTicketList} />;
     }
 
     return (
