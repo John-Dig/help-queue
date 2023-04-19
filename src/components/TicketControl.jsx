@@ -12,7 +12,8 @@ class TicketControl extends React.Component {
     };
   }
 
-  handleAddingNewTicketToList = (newTicket) => {
+
+  handleAddingNewTicketToList = (newTicket) => { // add ticket
     const newMainTicketList = this.state.mainTicketList.concat(newTicket);
     this.setState({
       mainTicketList: newMainTicketList,
@@ -54,9 +55,13 @@ class TicketControl extends React.Component {
       buttonText = "Click to continue";
     }
     if (this.state.counter === 4) {
-      buttonText = "Click to add your ticket"
-      currentlyVisibleState = <TicketList ticketList={this.state.mainTicketList} />;
+      buttonText = "Click to add your ticket and return to Ticket List"
+      //currentlyVisibleState = <TicketList ticketList={this.state.mainTicketList} />;
+      currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList} /> 
     }
+    //if (this.state.formVisibleOnPage) {
+    //  buttonText = 'Return to Ticket List';
+    //}
 
     return (
       <React.Fragment>
@@ -70,3 +75,4 @@ class TicketControl extends React.Component {
 }
 
 export default TicketControl;
+
