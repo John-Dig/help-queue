@@ -1,5 +1,6 @@
 import React from 'react';
-import PropTypes form ''
+import PropTypes form 'prop-types'
+
 https://www.learnhowtoprogram.com/react/react-fundamentals/passing-data-via-callbacks#:~:text=Step%204%3A%20Pass%20Method%20Down%20to%20Child%20Component%20as%20a%20Prop
 function NewTicketForm() {
 
