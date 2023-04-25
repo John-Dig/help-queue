@@ -10,6 +10,11 @@ import {Provider } from 'react-redux';
 
 
 const store = createStore(reducer);
+
+store.subscribe(() =>
+console.log(store.getState())
+);
+reportWebVitals(console.log) //just for fun
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 root.render(
