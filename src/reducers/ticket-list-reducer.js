@@ -11,7 +11,7 @@ const reducer = (state = {}, action) => {
         }
       });
     case 'DELETE_TICKET':
-      let newState = { ...state };
+      const newState = { ...state };
       delete newState[id]; //technically not a pure function here (not immutable)
       return newState;
     default:

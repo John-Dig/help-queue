@@ -2,6 +2,8 @@ import ticketListReducer from '../../reducers/ticket-list-reducer';
 
 describe('ticketListReducer', () => {
 
+  let action;
+
   const currentState = {
     1: {
       names: 'Ryan & Aimen',
@@ -16,7 +18,6 @@ describe('ticketListReducer', () => {
     }
   }
 
-  let action;
   const ticketData = {
     names: 'Ryan & Aimen',
     location: '4b',
@@ -24,7 +25,7 @@ describe('ticketListReducer', () => {
     id: 1
   };
 
-  test('Should return default state if there is no action type passed into the reducer', () => {
+  test('Should return default state if no action type is recognized', () => {
     expect(ticketListReducer({}, { type: null })).toEqual({});
   });
 
@@ -38,7 +39,7 @@ describe('ticketListReducer', () => {
       id: id
     };
     expect(ticketListReducer({}, action)).toEqual({
-      [id]: {
+      [id] : {
         names: names,
         location: location,
         issue: issue,
@@ -63,4 +64,3 @@ describe('ticketListReducer', () => {
   });
 
 });
-
