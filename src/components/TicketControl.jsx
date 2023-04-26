@@ -20,6 +20,7 @@ class TicketControl extends React.Component {
   }
 
   handleClick = () => {
+    console.log("handleClick CLICKED");
     if (this.state.selectedTicket != null) {
       this.setState({
         //formVisibleOnPage: false,
@@ -31,7 +32,7 @@ class TicketControl extends React.Component {
       const action={
         type: 'TOGGLE_FORM'
       }
-      // this.setState(prevState => ({ formVisibleOnPage: !prevState.formVisibleOnPage,}));
+      this.setState(prevState => ({ formVisibleOnPage: !prevState.formVisibleOnPage,}));
       dispatch(action);
     }
   }
@@ -63,7 +64,7 @@ class TicketControl extends React.Component {
     const { dispatch } = this.props;
     const { id, names, location, issue } = newTicket;
     const action = { type: 'ADD_TICKET', id: id, names: names, location: location, issue: issue, }
-    // this.setState({ formVisibleOnPage: false });
+    this.setState({ formVisibleOnPage: false });
     dispatch(action);
     const action2 = {
       type: 'TOGGLE_FORM'
