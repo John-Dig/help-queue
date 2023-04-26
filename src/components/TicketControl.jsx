@@ -104,15 +104,18 @@ class TicketControl extends React.Component {
 }
 
 TicketControl.propTypes = {
-  mainTicketList: PropTypes.object //stating that the mainTicketList prop should be of type object
+  mainTicketList: PropTypes.object, //stating that the mainTicketList prop should be of type object
+  formVisibleOnPage: PropTypes.bool
 };
 
 const mapStateToProps = state => {
   return {
-    mainTicketList: state
+    mainTicketList: state.mainTicketList,
+    formVisibleOnPage: state.formVisibleOnPage
   }
 }
 
 TicketControl = connect(mapStateToProps)(TicketControl); //wraps TicketControl 
 export default TicketControl;
 
+// https://www.learnhowtoprogram.com/react/react-with-redux/adding-combined-reducers-to-react#:~:text=3.%20Remove%20formVisibleOnPage%20State%20From%20TicketControl.js
