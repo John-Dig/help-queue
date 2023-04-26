@@ -10,4 +10,3 @@ function Header(){
 }
 
 export default Header;
-https://www.learnhowtoprogram.com/react/react-with-redux/adding-combined-reducers-to-react#:~:text=3.%20Remove%20formVisibleOnPage%20State%20From%20TicketControl.js

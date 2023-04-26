@@ -12,7 +12,7 @@ class TicketControl extends React.Component {
     super(props);
     console.log(props);
     this.state = {
-      formVisibleOnPage: false, //this could be moved to Redux store, but up to us.  Too much local state could be considered code smell in a larger app
+      // formVisibleOnPage: false,
       selectedTicket: null,
       editing: false,
     };
@@ -21,24 +21,21 @@ class TicketControl extends React.Component {
   handleClick = () => {
     if (this.state.selectedTicket != null) {
       this.setState({
-        formVisibleOnPage: false,
+        //formVisibleOnPage: false,
         selectedTicket: null,
         editing: false
       });
     } else {
-      this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage,
-      }));
+      const {dispatch}=this.props;
+      const action={
+        type: 'TOGGLE_FORM'
+      }
+      // this.setState(prevState => ({ formVisibleOnPage: !prevState.formVisibleOnPage,}));
+      dispatch(action);
     }
   }
 
-  handleDeletingTicket = (id) => {
-    const newMainTicketList = this.state.mainTicketList.filter(ticket => ticket.id !== id);
-    this.setState({
-      mainTicketList: newMainTicketList,
-      selectedTicket: null
-    });
-  }
+  
 
   handleDeletingTicket = (id) => {
     const {dispatch }= this.props;
@@ -60,13 +57,17 @@ class TicketControl extends React.Component {
     dispatch(action);
     this.setState({ editing: false, selectedTicket: null });
   }
-  // unneeded?
+  
   handleAddingNewTicketToList = (newTicket) => {
     const { dispatch } = this.props;
     const { id, names, location, issue } = newTicket;
     const action = { type: 'ADD_TICKET', id: id, names: names, location: location, issue: issue, }
+    // this.setState({ formVisibleOnPage: false });
     dispatch(action);
-    this.setState({ formVisibleOnPage: false });
+    const action2 = {
+      type: 'TOGGLE_FORM'
+    }
+    dispatch(action2)
   }
 
   handleChangingSelectedTicket = (id) => {
@@ -117,5 +118,3 @@ const mapStateToProps = state => {
 
 TicketControl = connect(mapStateToProps)(TicketControl); //wraps TicketControl 
 export default TicketControl;
-
-// https://www.learnhowtoprogram.com/react/react-with-redux/adding-combined-reducers-to-react#:~:text=3.%20Remove%20formVisibleOnPage%20State%20From%20TicketControl.js
