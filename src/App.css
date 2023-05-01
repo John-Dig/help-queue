@@ -1,15 +1,15 @@
 /* Updated color palette */
 :root {
-  --primary-color: #F35270; /* Cherry Red */
-  --secondary-color: #84E1A8; /* Mint Green */
-  --accent-color: #FFD700; /* Metallic Gold */
-  --text-color: #1E1F26; /* Deep Navy */
-  --header-color: #8A2BE2; /* Electric Purple */
-  --neon-pink: #FF6EC7; /* Neon Pink */
-  --ocean-blue: #00BFFF; /* Ocean Blue */
-  --tangerine-orange: #FFA07A; /* Tangerine Orange */
-  --lime-green: #9ACD32; /* Lime Green */
-  --grape-purple: #800080; /* Grape Purple */
+  --primary-color: #333; /* Black */
+  --secondary-color: #666; /* Dark Gray */
+  --accent-color: #999; /* Light Gray */
+  --text-color: #FFFFFF; /* White */
+  --header-color: #000; /* Black */
+  --color-a: #CCCCCC; /* Light Gray */
+  --color-b: #0000FF; /* Blue */
+  --color-c: #FF0000; /* Red */
+  --color-d: #00FF00; /* Green */
+  --color-e: #FFFF00; /* Yellow */
 }
 
 html {
