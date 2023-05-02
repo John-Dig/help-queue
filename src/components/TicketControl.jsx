@@ -22,6 +22,7 @@ function TicketControl() {
         collectionSnapshot.forEach((doc) => {//note: this is a QuerySnapshot method, not Array.prototype.forEach() method.
           tickets.push({
             ...doc.data(), //spread operator (optional) to copy properties from doc.data() to new object (names: doc.data().names, location: doc.data().location, issue: doc.data().issue)
+            id: doc.id //MISSING BREAKING PIECE! fixed.
           });
         });
         setMainTicketList(tickets);
