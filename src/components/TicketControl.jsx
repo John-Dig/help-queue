@@ -1,21 +1,17 @@
-// import React from 'react';
+import React, { useState, useEffect } from 'react';
 import NewTicketForm from './NewTicketForm';
 import TicketList from './TicketList';
 import EditTicketForm from './EditTicketForm';
 import TicketDetail from './TicketDetail';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import db from './../firebase.js'
+import { collection, addDoc } from 'firebase/firestore';
 
-// class TicketControl extends React.Component {
 function TicketControl() {
 
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
   const [mainTicketList, setMainTicketList] = useState([]);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [editing, setEditing] = useState(false);
-
-
 
   const handleClick = () => {
     if (selectedTicket != null) {
@@ -27,18 +23,15 @@ function TicketControl() {
     }
   }
 
-
   const handleDeletingTicket = (id) => {
     const newMainTicketList = mainTicketList.filter(ticket => ticket.id !== id);
     setMainTicketList(newMainTicketList);
     setSelectedTicket(null);
   }
 
-
   const handleEditClick = () => {
     setEditing(true);
   }
-
 
   const handleEditingTicketInList = (ticketToEdit) => { 
     const editedMainTicketList = mainTicketList.filter(ticket => ticket.id !== selectedTicket.id).concat(ticketToEdit);
@@ -47,9 +40,9 @@ function TicketControl() {
     setSelectedTicket(null);
   }
 
-  const handleAddingNewTicketToList = (newTicket) => {
-    const newMainTicketList = mainTicketList.concat(newTicket);
-    setMainTicketList(newMainTicketList);
+  const handleAddingNewTicketToList = async (newTicketData) => {
+    const collectionRef = collection(db, 'tickets');
+    await addDoc(collection(db, 'tickets'), newTicketData);
     setFormVisibleOnPage(false)
   }
 
