@@ -10,18 +10,20 @@ import React, { useState } from 'react';
 // class TicketControl extends React.Component {
 function TicketControl() {
 
-  const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);// new for hooks 
+  const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
   const [mainTicketList, setMainTicketList] = useState([]);
+  const [selectedTicket, setSelectedTicket] = useState(null);
+  const [editing, setEditing] = useState(false);
+
+
 
   const handleClick = () => {
-    if (this.state.selectedTicket != null) {
-      setFormVisibleOnPage(false);// new for hooks
-      this.setState({
-        formVisibleOnPage: false,
-        selectedTicket: null,
-      });
+    if (selectedTicket != null) {
+      setFormVisibleOnPage(false);
+        setSelectedTicket(null);
+        setEditing(false);
     } else {
-      setFormVisibleOnPage(!formVisibleOnPage); //new for hooks
+      setFormVisibleOnPage(!formVisibleOnPage);
     }
   }
 
@@ -29,56 +31,58 @@ function TicketControl() {
   const handleDeletingTicket = (id) => {
     const newMainTicketList = mainTicketList.filter(ticket => ticket.id !== id);
     setMainTicketList(newMainTicketList);
+    setSelectedTicket(null);
   }
 
 
   const handleEditClick = () => {
-    this.setState({ editing: true });
+    setEditing(true);
   }
 
 
-  const handleEditingTicketInList = (ticketToEdit) => { //handles ADD AND EDIT
-    const editedMainTicketList = mainTicketList.filter(ticket => ticket.id !== this.state.selectedTicket.id).concat(ticketToEdit);
+  const handleEditingTicketInList = (ticketToEdit) => { 
+    const editedMainTicketList = mainTicketList.filter(ticket => ticket.id !== selectedTicket.id).concat(ticketToEdit);
     setMainTicketList(editedMainTicketList);
+    setEditing(false);
+    setSelectedTicket(null);
   }
 
   const handleAddingNewTicketToList = (newTicket) => {
     const newMainTicketList = mainTicketList.concat(newTicket);
     setMainTicketList(newMainTicketList);
-    setFormVisibleOnPage(false)//new for hooks
+    setFormVisibleOnPage(false)
   }
 
   const handleChangingSelectedTicket = (id) => {
-    const selectedTicket = this.props.mainTicketList[id];
-    this.setState({ selectedTicket: selectedTicket });
+    const selection = mainTicketList.filter(ticket => ticket.id === id)[0];
+    setSelectedTicket(selection);
   }
 
   let currentlyVisibleState = null;
   let buttonText = null;
-  if (this.state.editing) {
-    currentlyVisibleState = <EditTicketForm ticket={this.state.selectedTicket} onEditTicket={this.handleEditingTicketInList} />
+  
+  if (editing) {
+    currentlyVisibleState = <EditTicketForm ticket={selectedTicket} onEditTicket={handleEditingTicketInList} />
     buttonText = "Return to Ticket List";
-  } else if (this.state.selectedTicket != null) {
+  } else if (selectedTicket != null) {
     currentlyVisibleState = <TicketDetail
-      ticket={this.state.selectedTicket}
-      onClickingDelete={this.handleDeletingTicket}
-      onClickingEdit={this.handleEditClick} />
+      ticket={selectedTicket}
+      onClickingDelete={handleDeletingTicket}
+      onClickingEdit={handleEditClick} />
     buttonText = "Return to Ticket List";
   } else if (formVisibleOnPage) {
-    currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList} />;
+    currentlyVisibleState = <NewTicketForm onNewTicketCreation={handleAddingNewTicketToList} />;
     buttonText = "Return to Ticket List";
   } else {
-    currentlyVisibleState = <TicketList onTicketSelection={this.handleChangingSelectedTicket} ticketList={mainTicketList} />;
+    currentlyVisibleState = <TicketList onTicketSelection={handleChangingSelectedTicket} ticketList={mainTicketList} />;
     buttonText = "Add Ticket";
   }
   return (
     <React.Fragment>
       {currentlyVisibleState}
-      <button onClick={this.handleClick}>{buttonText}</button>
+      <button onClick={handleClick}>{buttonText}</button>
     </React.Fragment>
   );
 }
 
 export default TicketControl;
-
-https://www.learnhowtoprogram.com/react/react-with-nosql/refactoring-help-queue-to-use-hooks#:~:text=default%20TicketControl%3B-,Updating%20the%20formVisibleOnPage%20State,-We%27ll%20finish%20our
